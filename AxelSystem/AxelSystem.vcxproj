@@ -143,7 +143,8 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AttackNode.h" />
+    <ClInclude Include="Axel.h" />
+    <ClInclude Include="AxelSystem.h" />
     <ClInclude Include="DataStructures\DList.h" />
     <ClInclude Include="DataStructures\Queue.h" />
     <ClInclude Include="DataStructures\GeneralTree.h" />

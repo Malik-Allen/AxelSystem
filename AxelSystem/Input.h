@@ -1,7 +1,7 @@
 #ifndef INPUT_H
 #define INPUT_H
 
-enum class Input
+enum class Button
 {
 	NoInput = 0,
 	A,
@@ -10,21 +10,25 @@ enum class Input
 	Y
 };
 
-struct Axel
+struct Input
 {
-	// Keep miliseconds, this will be working with the converted time in seconds to milliseconds from the attack node
+	
 public:
 
-	explicit Axel(const Input& input, unsigned int timeStamp) :
-		m_input( input ),
+	explicit Input(const Button& button, const unsigned int timeStamp) :
+		m_button( button ),
 		m_timeStamp( timeStamp )
 	{}
 
-	~Axel() {}
+	~Input() {}
+
+	const Button& GetButton() const { return m_button; }
+
+	const unsigned int GetTimeStamp() const { return m_timeStamp; }
 
 private:
 
-	Input			m_input;
+	Button			m_button;
 	unsigned int	m_timeStamp;
 
 };

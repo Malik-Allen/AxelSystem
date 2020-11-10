@@ -29,19 +29,22 @@
     <ClInclude Include="Input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AttackNode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="High-ResTimer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DataStructures\GeneralTree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DataStructures\DList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DataStructures\GeneralTree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="DataStructures\Queue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Axel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AxelSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

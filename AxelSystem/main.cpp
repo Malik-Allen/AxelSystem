@@ -1,64 +1,86 @@
-#include "AttackNode.h"
-#include "Input.h"
-#include "High-ResTimer.h"
+#include "AxelSystem.h"
 #include "DataStructures/Queue.h"
-
-// Linked list will represent the current attack branch
-// Queue for Axels
-// Axel System Class Will contiain a reference to a node graph
-// Node Tree
-
 #include "DataStructures/GeneralTree.h"
+
+
 
 int main()
 {
-	/*
-	AttackNode* parent = new AttackNode( Input::NoInput, 1, 2);
-
-	parent->AddChild( new AttackNode( Input::A, 0, 1 ) );
-	
-
-	parent->AddChild( new AttackNode( Input::B, 1, 2 ) )->AddChild( new AttackNode( Input::X, 1, 3 ) );
-	
-	parent->AddChild( new AttackNode( Input::X, 0, 1 ) );
-
-	parent->AddChild( new AttackNode( Input::Y, 0, 1 ) );
-	*/
-	
 	HighResTimer* timer = new HighResTimer();
 
-	AttackNode root = AttackNode( Input::NoInput, 0, 0 );
-	AttackNode basic1 = AttackNode( Input::A, 0, 1 );
-	AttackNode basic2 = AttackNode( Input::X, 0, 1 );
-	AttackNode basic3 = AttackNode( Input::Y, 0, 1 );
-	AttackNode basic4 = AttackNode( Input::B, 0, 1 );
-	Axel* axel = new Axel( Input::A, timer->GetCurrentTimeInMilliSeconds() );
+	Axel root = Axel( Button::NoInput, 0, 0 );
 
-	GeneralTree<AttackNode>* attackTree = new GeneralTree<AttackNode>( root );
 
-	attackTree->add_child( new GeneralTree<AttackNode>( basic1 ) );
-	attackTree->add_child( new GeneralTree<AttackNode>( basic2 ) );
-	attackTree->add_child( new GeneralTree<AttackNode>( basic3 ) );
-	attackTree->add_child( new GeneralTree<AttackNode>( basic4 ) );
+	Axel basic_attack_1 = Axel( Button::A, 0, 1 );
+	Axel basic_attack_2 = Axel( Button::X, 0, 1 );
+	Axel basic_attack_3 = Axel( Button::B, 0, 1 );
+	Axel basic_attack_4 = Axel( Button::Y, 0, 1 );
 
-	GeneralTree<AttackNode>* tmp = attackTree->find_child( basic3 );
+	GeneralTree<Axel>* rootTree = new GeneralTree<Axel>( root );
 
-	attackTree->remove( basic4 );
+	GeneralTree<Axel>* combo_1 = new GeneralTree<Axel>( basic_attack_1 );
+	combo_1->add_child( new GeneralTree<Axel>( Axel( Button::A, 0, 2 ) ) );
 
-	tmp = attackTree->find_child( basic4 );
+	GeneralTree<Axel>* combo_2 = new GeneralTree<Axel>( basic_attack_2 );
+	combo_2->add_child( new GeneralTree<Axel>( Axel( Button::Y, 0, 2 ) ) );
 
-	Queue<Axel> incomingInput;
 
-	incomingInput.enqueue_back( *axel );
+	GeneralTree<Axel>* combo_3 = new GeneralTree<Axel>( basic_attack_3 );
+	combo_3->add_child( new GeneralTree<Axel>( Axel( Button::X, 0, 2 ) ) );
+
+	GeneralTree<Axel>* combo_4 = new GeneralTree<Axel>( basic_attack_4 );
+	combo_4->add_child( new GeneralTree<Axel>( Axel( Button::B, 0, 2 ) ) );
+
+	rootTree->add_child( combo_1 );
+	rootTree->add_child( combo_2 );
+	rootTree->add_child( combo_3 );
+	rootTree->add_child( combo_4 );
+
+	Queue<Input>* playerInput = new Queue<Input>();
+
+	playerInput->enqueue_back( Input( Button::X, timer->GetCurrentTimeInMilliSeconds() ) );
+	playerInput->enqueue_back( Input( Button::A, timer->GetCurrentTimeInMilliSeconds() ) );
+	playerInput->enqueue_back( Input( Button::A, timer->GetCurrentTimeInMilliSeconds() ) );
 	
+	GeneralTree<Axel>* current = rootTree;
+	GeneralTree<Axel>* next = nullptr;
 
-	incomingInput.enqueue_back( Axel( Input::A, timer->GetCurrentTimeInMilliSeconds() ) );
-	incomingInput.enqueue_back( Axel( Input::B, timer->GetCurrentTimeInMilliSeconds() ) );
-	incomingInput.enqueue_back( Axel( Input::X, timer->GetCurrentTimeInMilliSeconds() ) );
-	Axel a = incomingInput.front();
-	incomingInput.dequeue_front();
+	next = current->find_child( playerInput->front() );
+	playerInput->dequeue_front();
+
+	// Check that we are within range for time stamp
+		// Comparison against previous tree 
+
+	// Play some animation interface
+
+	if ( next == nullptr )
+	{
+		return 0;
+	}
+
+	current = next;
+
+	next = current->find_child( playerInput->front() );
+	playerInput->dequeue_front();
+
+	if ( next == nullptr )
+	{
+		return 0;
+	}
+
+	current = next;
+
+	next = current->find_child( playerInput->front() );
+	playerInput->dequeue_front();
+
+	if ( next == nullptr )
+	{
+		return 0;
+	}
 
 
-	delete attackTree;
 	return 0;
 }
+
+
+
