@@ -12,7 +12,7 @@ enum class Button
 
 struct Input
 {
-	
+
 public:
 
 	explicit Input(const Button& button, const unsigned int timeStamp) :

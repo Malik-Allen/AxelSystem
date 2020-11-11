@@ -1,7 +1,12 @@
-#include "AxelSystem.h"
+#include "AxelCombatSystem.h"
 #include "DataStructures/Queue.h"
 #include "DataStructures/GeneralTree.h"
 
+
+// 1. Pass through a float time for the axel, to be converted to an unsigned internal int
+// 2. Create a Class to Lead the functionality
+	// a. Have a clear injection for input
+	// b. Have a clear injection point for the general tree of combinations
 
 
 int main()

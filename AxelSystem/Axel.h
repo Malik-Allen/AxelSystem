@@ -2,6 +2,7 @@
 #define AXEL_H
 
 #include "Input.h"
+#include "Utility/High-ResTimer.h"
 
 class Axel
 {
@@ -12,10 +13,10 @@ class Axel
 		// Make getters for them returning a float, don't perform a conversion for each get call, may lead to miscalculation
 public:
 
-	Axel( const Button& button, float timeRangeStart, const unsigned int timeRangeEnd ) :
+	Axel( const Button& button, float timeRangeStart, float timeRangeEnd ) :
 		m_input( new Input( button, 0 ) ),
-		m_timeRangeStart( timeRangeStart ),
-		m_timeRangeEnd( timeRangeEnd )
+		m_timeRangeStart( SECONDS_TO_MILLISECONDS * timeRangeStart ),
+		m_timeRangeEnd( SECONDS_TO_MILLISECONDS * timeRangeEnd )
 	{}
 
 	Axel( const Input& input ) :

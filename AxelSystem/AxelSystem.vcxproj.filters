@@ -18,18 +18,15 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="High-ResTimer.cpp">
+    <ClCompile Include="Utility\High-ResTimer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AxelManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Node.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Input.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="High-ResTimer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DataStructures\DList.h">
@@ -44,7 +41,13 @@
     <ClInclude Include="Axel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AxelSystem.h">
+    <ClInclude Include="Utility\High-ResTimer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AxelCombatSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AxelManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
