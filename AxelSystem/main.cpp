@@ -1,42 +1,44 @@
 #include "AxelCombatSystem.h"
-#include "DataStructures/Queue.h"
-#include "DataStructures/GeneralTree.h"
 
 #include <Windows.h>
 
 
-// 1. Pass through a float time for the axel, to be converted to an unsigned internal int
-// 2. Create a Class to Lead the functionality
-	// a. Have a clear injection for input
-	// b. Have a clear injection point for the general tree of combinations
+// Axel Combat System Vision: 
+	// Visual Scripting Nodes for setting up combo tree
+	// Any Input Enum can be taken as input
+	// Requires Time in seconds, program will handle conversions internally
+	// Fast and Accurate, and Percise
+	// Can Accpet Any Aniamtion Data for Axels
+	
 
 
 int main()
 {
 	HighResTimer* timer = new HighResTimer();
 
-	Axel root = Axel( Button::NoInput, 0, 0 );
+	Axel root = Axel( MyInput( Button::NoInput ), 0, 0 );
 
 
-	Axel basic_attack_1 = Axel( Button::A, 0.0f, 1.0f );
-	Axel basic_attack_2 = Axel( Button::X, 0.0f, 1.0f );
-	Axel basic_attack_3 = Axel( Button::B, 0.0f, 1.0f );
-	Axel basic_attack_4 = Axel( Button::Y, 0.0f, 1.0f );
+	Axel basic_attack_1 = Axel( MyInput( Button::A ), 0.0f, 1.0f );
+	Axel basic_attack_2 = Axel( MyInput( Button::X ), 0.0f, 1.0f );
+	Axel basic_attack_3 = Axel( MyInput( Button::B ), 0.0f, 1.0f );
+	Axel basic_attack_4 = Axel( MyInput( Button::Y ), 0.0f, 1.0f );
 
 	GeneralTree<Axel>* rootTree = new GeneralTree<Axel>( root );
 
 	GeneralTree<Axel>* combo_1 = new GeneralTree<Axel>( basic_attack_1 );
-	combo_1->add_child( new GeneralTree<Axel>( Axel( Button::A, 0.0f, 1.0f ) ) );
+	combo_1->add_child( new GeneralTree<Axel>( Axel( MyInput( Button::A ), 0.0f, 1.0f ) ) );
 
 	GeneralTree<Axel>* combo_2 = new GeneralTree<Axel>( basic_attack_2 );
-	combo_2->add_child( new GeneralTree<Axel>( Axel( Button::Y, 0.0f, 1.0f ) ) );
-
+	GeneralTree<Axel>* temp = new GeneralTree<Axel>( Axel( MyInput( Button::Y ), 0.0f, 1.0f ) );
+	combo_2->add_child( temp );
+	temp->add_child( new GeneralTree<Axel>( Axel( MyInput( Button::Y ), 0.0f, 0.2f ) ) );
 
 	GeneralTree<Axel>* combo_3 = new GeneralTree<Axel>( basic_attack_3 );
-	combo_3->add_child( new GeneralTree<Axel>( Axel( Button::X, 0.0f, 1.0f ) ) );
+	combo_3->add_child( new GeneralTree<Axel>( Axel( MyInput( Button::X ), 0.0f, 1.0f ) ) );
 
 	GeneralTree<Axel>* combo_4 = new GeneralTree<Axel>( basic_attack_4 );
-	combo_4->add_child( new GeneralTree<Axel>( Axel( Button::B, 0.0f, 1.0f ) ) );
+	combo_4->add_child( new GeneralTree<Axel>( Axel( MyInput( Button::B ), 0.0f, 1.0f ) ) );
 
 	rootTree->add_child( combo_1 );
 	rootTree->add_child( combo_2 );
@@ -48,11 +50,11 @@ int main()
 
 	axelManager->QueueInput( MyInput( Button::X, timer->GetCurrentTimeInMilliSeconds() ) );
 
-	Sleep( 2000 );
+	Sleep( 200 );
 
 	axelManager->QueueInput( MyInput( Button::Y, timer->GetCurrentTimeInMilliSeconds() ) );
 
-	Sleep( 300 );
+	Sleep( 201 );
 
 	axelManager->QueueInput( MyInput( Button::Y, timer->GetCurrentTimeInMilliSeconds() ) );
 	
@@ -66,55 +68,6 @@ int main()
 
 	return 0;
 
-
-
-
-
-
-	Queue<MyInput>* playerInput = new Queue<MyInput>();
-
-	playerInput->enqueue_back( MyInput( Button::X, timer->GetCurrentTimeInMilliSeconds() ) );
-	playerInput->enqueue_back( MyInput( Button::A, timer->GetCurrentTimeInMilliSeconds() ) );
-	playerInput->enqueue_back( MyInput( Button::A, timer->GetCurrentTimeInMilliSeconds() ) );
-	
-	//  = rootTree;
-	GeneralTree<Axel>* next = nullptr;
-
-	next = current->find_child( playerInput->front() );
-	playerInput->dequeue_front();
-
-	// Check that we are within range for time stamp
-		// Comparison against previous tree 
-
-	// Play some animation interface
-
-	if ( next == nullptr )
-	{
-		return 0;
-	}
-
-	current = next;
-
-	next = current->find_child( playerInput->front() );
-	playerInput->dequeue_front();
-
-	if ( next == nullptr )
-	{
-		return 0;
-	}
-
-	current = next;
-
-	next = current->find_child( playerInput->front() );
-	playerInput->dequeue_front();
-
-	if ( next == nullptr )
-	{
-		return 0;
-	}
-
-
-	return 0;
 }
 
 

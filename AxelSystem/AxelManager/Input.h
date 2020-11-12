@@ -16,7 +16,7 @@ struct Input
 
 public:
 
-	explicit Input(const T& button, const unsigned int timeStamp) :
+	explicit Input(const T& button, const unsigned int timeStamp = 0) :
 		m_button( button ),
 		m_timeStamp( timeStamp )
 	{}

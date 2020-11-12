@@ -2,10 +2,14 @@
 #define AXEL_H
 
 #include "Input.h"
-#include "../Utility/High-ResTimer.h"
+#include "../Utility/High-ResTimer.h"	// Only here for Macro Definitions of SECONDS_TO_MILLISECONDS
 
+
+// CONSIDER:
+	// Template Axel for Animation Data Pointer/ Ref
 
 using MyInput = Input<Button>;	// Hear is where you can customize what data is used to define an input
+
 
 class Axel
 {
@@ -14,8 +18,8 @@ class Axel
 
 public:
 
-	explicit Axel( const Button& button, float timeRangeStart, float timeRangeEnd ) :
-		m_input( MyInput( button, 0 ) ),
+	explicit Axel( const MyInput& input, float timeRangeStart, float timeRangeEnd ) :
+		m_input( input ),
 		m_timeRangeStart( SECONDS_TO_MILLISECONDS * timeRangeStart ),
 		m_timeRangeEnd( SECONDS_TO_MILLISECONDS * timeRangeEnd )
 	{}
