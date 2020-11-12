@@ -139,19 +139,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AxelManager.cpp" />
+    <ClCompile Include="AxelManager\AxelManager.cpp" />
     <ClCompile Include="Utility\High-ResTimer.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Axel.h" />
+    <ClInclude Include="AxelManager\Axel.h" />
     <ClInclude Include="AxelCombatSystem.h" />
-    <ClInclude Include="AxelManager.h" />
+    <ClInclude Include="AxelManager\AxelManager.h" />
     <ClInclude Include="DataStructures\DList.h" />
     <ClInclude Include="DataStructures\Queue.h" />
     <ClInclude Include="DataStructures\GeneralTree.h" />
     <ClInclude Include="Utility\High-ResTimer.h" />
-    <ClInclude Include="Input.h" />
+    <ClInclude Include="AxelManager\Input.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

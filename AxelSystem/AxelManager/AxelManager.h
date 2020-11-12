@@ -1,8 +1,8 @@
 #ifndef AXELMANAGER_H
 #define AXELMANAGER_H
 
-#include "DataStructures/GeneralTree.h"
-#include "DataStructures/Queue.h"
+#include "../DataStructures/GeneralTree.h"
+#include "../DataStructures/Queue.h"
 
 #include "Axel.h"
 
@@ -16,14 +16,21 @@ class AxelManager
 
 public:
 
-	AxelManager( GeneralTree<Axel>* rootTree );
+	explicit AxelManager( GeneralTree<Axel>* rootTree );
 
 	~AxelManager();
 	
 	// Adds input to the queue of waiting inputs to be processed by manager
-	void QueueInput( const Input& input );
+	void QueueInput( const MyInput& input );
 
-	
+	// Call this event once the attack has been completed, inorder to transition
+	void OnAttackComplete();
+
+	// When an attack has been cancelled or interrupted for any reason, break and clear current combo
+	void OnAttackCancel();
+
+	// Returns the next attack to play, returns nullptr if combo chain is broken
+	GeneralTree<Axel>* GetNextAttackNode() const { return m_nextNode; }
 
 private:
 
@@ -31,12 +38,12 @@ private:
 	GeneralTree<Axel>*		m_axelTree;
 
 	// Input queue, is input received from the player 
-	Queue<Input>*			m_inputQueue;
+	Queue<MyInput>*			m_inputQueue;
 
 	GeneralTree<Axel>*		m_currentNode;
 	GeneralTree<Axel>*		m_nextNode;
 
-	Input					m_lastSuccessfulInput;
+	MyInput					m_lastSuccessfulInput;
 
 	bool					m_hasAttackSequenceStarted;
 
@@ -49,13 +56,11 @@ private:
 
 	// Searches passed axel tree for a child node that matches the passed input 
 	// Returns the Node if it exists, otherwise returns nullptr
-	GeneralTree<Axel>* SearchForNextNode ( GeneralTree<Axel>* axelTree, const Input& input );
+	GeneralTree<Axel>* SearchForNextNode ( GeneralTree<Axel>* axelTree, const MyInput& input );
 
 
 	// Returns true if the difference in time between the last successful input and the input in question is inside the range of time for the desired Axel
-	bool HasInputBeenReceivedInTime(const Input& lastSuccessfulInput, const Input& inputInQuestion, GeneralTree<Axel>* desiredAxelNode);
-
-
+	bool HasInputBeenReceivedInTime(const MyInput& lastSuccessfulInput, const MyInput& inputInQuestion, GeneralTree<Axel>* desiredAxelNode);
 
 };
 

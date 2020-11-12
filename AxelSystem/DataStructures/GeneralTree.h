@@ -127,6 +127,8 @@ public:
 		}
 	}
 
+	const T& get() const { return m_data; }
+
 	
 };
 

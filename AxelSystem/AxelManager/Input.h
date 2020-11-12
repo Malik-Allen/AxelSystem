@@ -10,25 +10,31 @@ enum class Button
 	Y
 };
 
+template<typename T>
 struct Input
 {
 
 public:
 
-	explicit Input(const Button& button, const unsigned int timeStamp) :
+	explicit Input(const T& button, const unsigned int timeStamp) :
 		m_button( button ),
 		m_timeStamp( timeStamp )
 	{}
 
 	~Input() {}
 
-	const Button& GetButton() const { return m_button; }
+	const T& GetButton() const { return m_button; }
 
 	const unsigned int GetTimeStamp() const { return m_timeStamp; }
 
+	bool operator==( const Input& rhs )
+	{
+		return m_button == rhs.m_button;
+	}
+
 private:
 
-	Button			m_button;
+	T			m_button;
 	unsigned int	m_timeStamp;
 
 };
